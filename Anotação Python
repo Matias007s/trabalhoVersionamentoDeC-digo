@@ -1,0 +1,49 @@
+def salvar_anotacoes(nome_arquivo, anotacoes):
+    try:
+        with open(nome_arquivo, 'w') as file:
+            for anotacao in anotacoes:
+                file.write(anotacao + "\n")
+        print(f"As anotações foram salvas em '{nome_arquivo}'.")
+    except Exception as e:
+        print(f"Erro ao salvar as anotações: {str(e)}")
+
+def carregar_anotacoes(nome_arquivo):
+    try:
+        with open(nome_arquivo, 'r') as file:
+            anotacoes = file.readlines()
+        return [anotacao.strip() for anotacao in anotacoes]
+    except FileNotFoundError:
+        print(f"O arquivo '{nome_arquivo}' não existe. Será criado um novo.")
+        return []
+
+def main():
+    nome_arquivo = input("Digite o nome do arquivo para salvar suas anotações (inclua a extensão .txt): ")
+    anotacoes = carregar_anotacoes(nome_arquivo)
+
+    while True:
+        print("\n1. Ver Anotações")
+        print("2. Adicionar Anotação")
+        print("3. Salvar e Sair")
+
+        escolha = input("Escolha uma opção: ")
+
+        if escolha == '1':
+            if not anotacoes:
+                print("Você não tem nenhuma anotação.")
+            else:
+                print("Suas anotações:")
+                for i, anotacao in enumerate(anotacoes, start=1):
+                    print(f"{i}. {anotacao}")
+        elif escolha == '2':
+            nova_anotacao = input("Digite sua nova anotação: ")
+            anotacoes.append(nova_anotacao)
+            print("Anotação adicionada com sucesso.")
+        elif escolha == '3':
+            salvar_anotacoes(nome_arquivo, anotacoes)
+            print("Saindo...")
+            break
+        else:
+            print("Opção inválida! Por favor, escolha uma opção válida.")
+
+if __name__ == "__main__":
+    main()
