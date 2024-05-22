@@ -1,0 +1,31 @@
+def criar_html(nota):
+    html = f'''
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Anotações</title>
+    </head>
+    <body>
+        <h1>Suas Anotações</h1>
+        <p>{nota}</p>
+    </body>
+    </html>
+    '''
+    return html
+
+def salvar_anotacoes(html_content, nome_arquivo):
+    with open(nome_arquivo, 'w') as file:
+        file.write(html_content)
+    print(f"As anotações foram salvas em '{nome_arquivo}'.")
+
+def main():
+    nota = input("Digite suas anotações: ")
+    nome_arquivo = input("Digite o nome do arquivo HTML para salvar suas anotações (inclua .html): ")
+
+    html_content = criar_html(nota)
+    salvar_anotacoes(html_content, nome_arquivo)
+
+if __name__ == "__main__":
+    main()
